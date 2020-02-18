@@ -1,12 +1,13 @@
 import React from 'react';
-import Header from './components/header/index'
+import ExchangePage from './pages/exchangePage/index'
 
-function App() {
-  return (
-    <div className="App">
-      <Header/>
-    </div>
-  );
+export default class App extends React.Component {
+  render(){
+    return (
+      <div className="App">
+        <ExchangePage/>
+      </div>
+    );
+  }
 }
 
-export default App;
