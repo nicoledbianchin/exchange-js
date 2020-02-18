@@ -1,4 +1,5 @@
 import React from 'react';
+import api from '../../services/source/api'
 
 export default class Calculator extends React.Component{
 
@@ -32,24 +33,8 @@ export default class Calculator extends React.Component{
         if (isNaN(value)) {
             return;
         }
-        
-        if (this.cached[this.state.base] !== undefined && Date.now() - this.cached[this.state.base].timestamp < 60000) {	
-            this.setState({	
-                converted: this.cached[this.state.base].rates[this.state.other] * value	
-            });	
-            return;      	
-        }
-
-        fetch(`https://api.exchangeratesapi.io/latest?base=${this.state.base}`)
-        .then(response => response.json())
-        .then(data => { 
-            this.cached[this.state.base] = {	
-                rates: data.rates,	
-                timestamp: Date.now()	
-            };	
-            this.setState({
-                converted: data.rates[this.state.other] * value 
-            });
+        this.setState({
+            converted: api.getRates(this.state.other) * value 
         });
     }
 

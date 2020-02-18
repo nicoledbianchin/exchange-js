@@ -1,5 +1,5 @@
-import axios from 'axios'
+import http from '../utils/http.js'
 
-const api = axios.create({ baseURL:  'https://rocketseat-node.herokuapp.com/api'});
-
-export default api;
+export default {
+    getRates: (base) => http.get(`${base}`)
+}
