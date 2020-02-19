@@ -12,8 +12,7 @@ export default class Calculator extends React.Component{
             other: "EUR",
             value: 0,
             converted: 0,
-            response: null,
-            tax: 0
+            response: null
         };
     }
 
@@ -23,10 +22,9 @@ export default class Calculator extends React.Component{
 
     loadRates = async (base) => {
         const response = await api.get(`latest?base=${base}`);
-        this.setState(state =>({
-            other: this.state.other,
-            response: response.data.rates.USD
-        }))
+        this.setState({
+            response: response.data.rates.EUR
+        })
         console.log(this.state.response)
     }
 
@@ -51,7 +49,6 @@ export default class Calculator extends React.Component{
         this.setState({
             converted: this.state.response * parseFloat(value)
         })
-        console.log(this.state.converted)
     }
 
     render(){
