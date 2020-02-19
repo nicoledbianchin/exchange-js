@@ -1,5 +1,5 @@
-import http from '../../utils/https'
+import axios from 'axios';
 
-export default {
-    getRates: (base) => http.get(`/latest?base=${base}`)
-}
+const api = axios.create({ baseURL: 'https://api.exchangeratesapi.io' })
+
+export default api;
