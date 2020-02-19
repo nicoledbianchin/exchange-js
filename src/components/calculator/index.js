@@ -11,8 +11,23 @@ export default class Calculator extends React.Component{
             base: "USD",
             other: "EUR",
             value: 0,
-            converted: 0
+            converted: 0,
+            response: null,
+            tax: 0
         };
+    }
+
+    componentDidMount(){
+        this.loadRates(this.state.base);
+    }
+
+    loadRates = async (base) => {
+        const response = await api.get(`latest?base=${base}`);
+        this.setState(state =>({
+            other: this.state.other,
+            response: response.data.rates.USD
+        }))
+        console.log(this.state.response)
     }
 
     makeSelection = (event) => {
@@ -34,8 +49,9 @@ export default class Calculator extends React.Component{
             return;
         }
         this.setState({
-            converted: api.getRates(this.state.other) * value 
-        });
+            converted: this.state.response * parseFloat(value)
+        })
+        console.log(this.state.converted)
     }
 
     render(){
